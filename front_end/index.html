@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doce Encomenda — Bolos sob encomenda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Sora:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">Doce <span>Encomenda</span></div>
+  <nav>bolos artesanais sob encomenda</nav>
+</header>
+
+<section class="hero">
+  <div>
+    <span class="eyebrow">cardápio da semana</span>
+    <h1>Cada bolo é feito <em>depois</em> do seu pedido, não antes.</h1>
+    <p>Escolha o bolo, o sabor e o tamanho. O pagamento é feito na hora, e a confeitaria já recebe seu pedido completo assim que ele é confirmado.</p>
+  </div>
+  <div class="hero-visual"><span class="tag">assado sob encomenda</span></div>
+</section>
+
+<div class="section-title">
+  <h2>Escolha o seu bolo</h2>
+  <span class="count" id="contagem"></span>
+</div>
+
+<div class="layout">
+  <div id="catalogo">
+    <p style="color:rgba(59,36,23,0.5); font-size:0.9rem;">Carregando cardápio…</p>
+  </div>
+
+  <aside class="ticket" id="ticket">
+    <h3>Seu pedido <span id="ticket-status">#vazio</span></h3>
+
+    <div class="ticket-empty" id="ticket-empty">
+      Ainda não há nada aqui. Toque em um bolo ao lado para montar seu pedido.
+    </div>
+
+    <div class="ticket-item" id="ticket-item">
+      <div class="line"><span>Bolo</span><span id="tk-bolo">—</span></div>
+      <div class="line"><span>Sabor</span><span id="tk-sabor">—</span></div>
+      <div class="line"><span>Tamanho</span><span id="tk-tamanho">—</span></div>
+      <div class="total"><span>Total</span><span class="val" id="tk-total">R$ 0,00</span></div>
+    </div>
+
+    <fieldset id="dados-cliente">
+      <label for="nome">Seu nome</label>
+      <input id="nome" type="text" placeholder="Como podemos te chamar?">
+
+      <label for="telefone">Telefone (com DDD)</label>
+      <input id="telefone" type="tel" placeholder="(11) 99999-9999">
+
+      <label for="entrega">Data de entrega</label>
+      <input id="entrega" type="datetime-local">
+
+      <label for="obs">Observações (ex: mensagem no bolo)</label>
+      <textarea id="obs" placeholder="Escrever &quot;Feliz Aniversário&quot;, alergias, etc."></textarea>
+
+      <button id="finalizar">Ir para pagamento</button>
+      <div id="status-msg"></div>
+    </fieldset>
+  </aside>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
