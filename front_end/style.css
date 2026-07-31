@@ -255,7 +255,7 @@
   }
   textarea{ resize:vertical; min-height:56px; font-family:'Sora', sans-serif; }
 
-  button#finalizar{
+  button#finalizar,#adicionar-carrinho{
     width:100%;
     padding:15px;
     border:none;

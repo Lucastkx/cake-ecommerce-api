@@ -65,7 +65,8 @@ bolos = [
                 "preco_base": 150
             }
         ]
-    }
+    },
+    
 ]
 
 pedidos = []
@@ -87,6 +88,26 @@ def adicionar_carrinho():
         'mensagem': "Item adicionado ao carrinho",
         'item': item
     })
+
+# verificar os itens do carrinho
+@app.route('/carrinho/', methods=['GET'])
+def verificar_pedido():
+    return jsonify(carrinho)
+
+
+
+#remover itens do carrinho
+def remover_item_carrinho(id):
+    for indice, item in enumerate(carrinho):
+        if item.get('id') == id:
+            del carrinho[indice]
+            return jsonify({
+                "mensagem": "Item removido do carrinho"
+            })
+    return jsonify({
+        "erro": "Item não encontrado no carrinho"
+    }), 404
+
 
 #verifica se esta funcionando
 @app.route("/")

@@ -128,6 +128,113 @@ function atualizarPedido(boloId){
 }
 
 document.getElementById('finalizar').addEventListener('click', finalizarPedido);
+document.getElementById('adicionar-carrinho').addEventListener('click', adicionarCarrinho);
+
+async function adicionarCarrinho(){
+
+  if (!pedido.bolo){
+    alert("Escolha um bolo primeiro.");
+    return;
+  }
+
+  const item = {
+    bolo_id: pedido.bolo.id,
+    sabor_id: pedido.sabor.id,
+    tamanho_id: pedido.tamanho.id,
+    quantidade: 1
+  };
+
+
+  try {
+
+    const resp = await fetch(`${API_BASE}/carrinho/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(item)
+    });
+
+
+    if (!resp.ok){
+      throw new Error("Erro ao adicionar");
+    }
+
+
+    const data = await resp.json();
+
+    alert(data.mensagem);
+
+
+  } catch(error){
+
+    alert("Não foi possível adicionar ao carrinho.");
+
+  }
+
+}
+
+async function carregarCarrinho(){
+
+  try{
+
+    const resp = await fetch(`${API_BASE}/carrinho/`);
+    const itens = await resp.json();
+    const vazio = document.getElementById("ticket-empty");
+
+if(itens.length === 0){
+    vazio.style.display = "block";
+} else {
+    vazio.style.display = "none";
+}
+
+    const lista = document.getElementById("lista-carrinho");
+
+    lista.innerHTML = "";
+
+    let totalCarrinho = 0;
+
+
+    itens.forEach(item => {
+
+      const bolo = bolos.find(b => b.id === item.bolo_id);
+
+      const sabor = bolo.sabores.find(s => s.id === item.sabor_id);
+
+      const tamanho = bolo.tamanhos.find(t => t.id === item.tamanho_id);
+
+
+      const subtotal = (tamanho.preco_base + sabor.preco_adicional) * item.quantidade;
+
+      totalCarrinho += subtotal;
+
+
+      lista.innerHTML += `
+        <div class="item-carrinho">
+          <strong>${bolo.nome}</strong><br>
+          Sabor: ${sabor.nome}<br>
+          Tamanho: ${tamanho.nome}<br>
+          Quantidade: ${item.quantidade}<br>
+          Subtotal: ${formatarPreco(subtotal)}
+        </div>
+        <hr>
+      `;
+
+    });
+
+
+    lista.innerHTML += `
+      <h3>Total: ${formatarPreco(totalCarrinho)}</h3>
+    `;
+
+
+  }catch(error){
+
+    console.log(error);
+
+  }
+
+}
 
 async function finalizarPedido(){
   const nome = document.getElementById('nome').value.trim();
@@ -173,3 +280,4 @@ async function finalizarPedido(){
 }
 
 carregarBolos();
+carregarCarrinho();
